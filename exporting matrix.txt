@@ -1,0 +1,52 @@
+
+#how to generate the matrix:
+#import 10x genomics cellranger data matrix
+#import normal medium
+EML_1.data <- Read10X(data.dir = "xxx/eml")
+
+##for metadata table
+cell_barcode <- colnames(EML_1.data)
+
+length(cell_barcode)
+
+sample_name <- paste("EML_",1:length(cell_barcode), sep = "")
+
+EML_10xgenomcis_metadata <- cbind(sample_name, cell_barcode)
+
+##export metadata table
+write.table(EML_10xgenomcis_metadata, file = "EML_10xgenomcis_metadata.txt", col.names = TRUE, row.names = FALSE)
+
+#for the expression matrix
+EML_1.matrix <- as.matrix(EML_1.data)
+colnames(EML_1.matrix) <- sample_name
+
+#export data matrix
+write.csv(EML_1.matrix, file = "EML_1.matrix.csv")
+          
+          
+          
+##############
+#import 10x genomics cellranger data matrix
+#import serum free medium sample
+
+EML_serum_free.data <- Read10X(data.dir = "xxx/eml_SF")
+
+
+##for metadata table
+cell_barcode <- colnames(EML_serum_free.data)
+
+length(cell_barcode)
+
+sample_name <- paste("EML_",1:length(cell_barcode), sep = "")
+
+EML_10xgenomcis_metadata <- cbind(sample_name, cell_barcode)
+
+
+write.table(EML_10xgenomcis_metadata, file = "EML_serum_free_10xgenomcis_metadata.txt", col.names = TRUE, row.names = FALSE)
+
+#for the expression matrix
+EML_serum_free.matrix <- as.matrix(EML_serum_free.data)
+colnames(EML_serum_free.matrix) <- sample_name
+
+write.csv(EML_serum_free.matrix, file = "EML_serum_free.matrix.csv")
+ 
